@@ -7,12 +7,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="create-post">
-        <input type="text" id="post-title" placeholder="Titel">
-        <textarea id="post-content" placeholder="Innehåll"></textarea>
+    <form id="create-post-form">
+        <label for="post-title">Title:</label>
+        <input type="text" id="post-title" placeholder="Title" required>
+
+        <label for="post-content">Text:</label>
+        <textarea id="post-content" placeholder="Text" required></textarea>
+
+        <label for="post-tags">Tags:</label>
         <input type="text" id="post-tags" placeholder="Tags">
-        <button onclick="createPost()">Skapa inlägg</button>
-    </div>
+
+        <button type="button" onclick="createPost()">Post</button>
+    </form>
 
     <!-- Visa inlägg här -->
     <div id="posts-container"></div>
