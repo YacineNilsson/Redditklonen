@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Implementera formulärhantering för att skapa nya inlägg
-    const createPostButton = document.querySelector('button');
-    createPostButton.addEventListener('click', createPost);
+    const createPostForm = document.getElementById('create-post-form');
+    createPostForm.addEventListener('submit', createPost);
 
     // Implementera gilla-funktionen och local storage för VG-krav
 });
@@ -42,6 +42,12 @@ fetch('https://dummyjson.com/posts')
         const title = document.getElementById('post-title').value;
         const content = document.getElementById('post-content').value;
         const tags = document.getElementById('post-tags').value.split(',');
+
+        // Kontrollera om något av fälten är tomt
+        if (!title || !content) {
+        alert('Fyll i alla fält innan du skapar inlägget.');
+        return;
+    }
     
         // Skapa ett nytt inläggselement
         const postElement = document.createElement('article');
