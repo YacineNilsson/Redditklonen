@@ -12,8 +12,9 @@ fetch('https://dummyjson.com/posts')
 
         // Loopa igenom varje inlägg i datan
         data.posts.forEach(post => {
+
             // Skapa ett HTML-element för varje inlägg
-            const postElement = document.createElement('div');
+            const postElement = document.createElement('article');
             postElement.classList.add('post'); // Lägg till klassen för styling
 
             // Fyll inlägget med relevant information. 
@@ -25,6 +26,8 @@ fetch('https://dummyjson.com/posts')
 
             // Lägg till inlägget i postsContainer
             postsContainer.appendChild(postElement);
-        });
-        
+        });        
     })
+    .catch(error => {
+        console.error('Error fetching or parsing data:', error);
+    });
