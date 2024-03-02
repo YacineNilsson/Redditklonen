@@ -2,18 +2,12 @@
 //Väntar på att köra js-kod tills att hela dokumentet har laddats.
 //Bara lite övning och skadar inte att ha kvar även om det är överflödingt
 document.addEventListener('DOMContentLoaded', function () {
-  
-    // Hämta formuläret för att skapa nya inlägg från HTML-dokumentet
-    // och lägg till en lyssnare för 'submit'-händelsen som anropar funktionen createPost.
-    const createPostForm = document.getElementById('create-post-form');
-    createPostForm.addEventListener('submit', createPost);
-
-    // Implementera gilla-funktionen och local storage för VG-krav
 });
 
-
+// Hämta referensen till postsContainer
 const postsContainer = document.getElementById('posts-container');
 
+// Hämta inlägg från det externa API:et och hantera data
 fetch('https://dummyjson.com/posts')
     .then(response => response.json())
     .then(data => {
@@ -34,12 +28,34 @@ fetch('https://dummyjson.com/posts')
 
             // Lägg till inlägget i postsContainer
             postsContainer.appendChild(postElement);
+
+            // Lägg till like-knapp och räkna likes
+            const likeButton = document.createElement('button');
+            likeButton.innerText = 'Like';
+            const reactionCount = document.createElement('span');
+            reactionCount.innerText = `Likes: ${post.reactions || 0}`;
+            
+            // Lägg till en lyssnare för like-knappen
+            likeButton.addEventListener('click', () => {
+                post.reactions = (post.reactions || 0) + 1;
+                reactionCount.innerText = `Likes: ${post.reactions}`;
+            });
+            
+            // Lägg till like-knapp och räkna likes i inlägget
+            postElement.appendChild(likeButton);
+            postElement.appendChild(reactionCount);
+            
+            // Lägg till inlägget i postsContainer
+            postsContainer.appendChild(postElement);
+
+
         });        
     })
     .catch(error => {
         console.error('Error fetching or parsing data:', error);
     });
 
+    // Skapa ett nytt inlägg när formuläret skickas
     function createPost(event) {
         event.preventDefault();
 
@@ -54,7 +70,7 @@ fetch('https://dummyjson.com/posts')
 
         // Kontrollera om titel- och/eller content-fälten är tomt
         if (!title || !content) {
-        alert('Fill in title and/or text');
+        alert('Please fill in both title and text before posting.');
         return;
     }
     
@@ -69,14 +85,12 @@ fetch('https://dummyjson.com/posts')
             <p>Tags: ${tags.join(', ')}</p>
         `;
     
-        // Hämta referensen till postsContainer
-        const postsContainer = document.getElementById('posts-container');
-    
         // Lägg till det nya inlägget längst upp
         if (postsContainer.firstChild) {
             postsContainer.insertBefore(postElement, postsContainer.firstChild);
-        } else {
-            // Om det inte finns några inlägg ännu, bara lägg till det
+        } 
+        // Om det inte finns några inlägg ännu, bara lägg till det
+        else {
             postsContainer.appendChild(postElement);
         }
     
