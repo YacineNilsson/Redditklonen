@@ -1,5 +1,10 @@
+//Detta behövs bara när javascript är placerad i head-elementet.
+//Väntar på att köra js-kod tills att hela dokumentet har laddats.
+//Bara lite övning och skadar inte att ha kvar även om det är överflödingt
 document.addEventListener('DOMContentLoaded', function () {
-    // Implementera formulärhantering för att skapa nya inlägg
+  
+    // Hämta formuläret för att skapa nya inlägg från HTML-dokumentet
+    // och lägg till en lyssnare för 'submit'-händelsen som anropar funktionen createPost.
     const createPostForm = document.getElementById('create-post-form');
     createPostForm.addEventListener('submit', createPost);
 
@@ -41,11 +46,15 @@ fetch('https://dummyjson.com/posts')
         // Hämta värden från formuläret
         const title = document.getElementById('post-title').value;
         const content = document.getElementById('post-content').value;
-        const tags = document.getElementById('post-tags').value.split(',');
+        const tagsInput = document.getElementById('post-tags').value;
 
-        // Kontrollera om något av fälten är tomt
+        // Dela upp tagsInput-strängen i en array baserat på mellanslag,
+        // och filtrera bort eventuella tomma strängar från arrayen.
+        const tags = tagsInput.split(' ').filter(tag => tag.trim() !== '');
+
+        // Kontrollera om titel- och/eller content-fälten är tomt
         if (!title || !content) {
-        alert('Fyll i alla fält innan du skapar inlägget.');
+        alert('Fill in title and/or text');
         return;
     }
     
