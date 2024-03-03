@@ -43,6 +43,9 @@ function createPost(event) {
     return;
   }
 
+  // Hämta befintliga inlägg från local storage
+  const existingPosts = getFromLocalStorage();
+
   // Skapa ett nytt inlägg
   const newPost = {
     title,
@@ -52,11 +55,11 @@ function createPost(event) {
   };
 
   // Lägg till det nya inlägget längst upp
-  posts.unshift(newPost);
-  displayPosts(posts); // Visa inlägg på sidan
+  const updatedPosts = [newPost, ...existingPosts];
+  displayPosts(updatedPosts); // Visa inlägg på sidan
 
   // Spara inläggen i local storage
-  saveToLocalStorage(posts);
+  saveToLocalStorage(updatedPosts);
 
   // Rensa formulärfälten
   document.getElementById("post-title").value = "";
