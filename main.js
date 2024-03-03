@@ -1,5 +1,6 @@
 // Hämta referens
 const postsContainer = document.getElementById("posts-container");
+const createPostForm = document.getElementById("create-post-form");
 
 // Hämta inlägg från local storage eller det externa API:et
 const posts = getFromLocalStorage();
@@ -65,6 +66,9 @@ function createPost(event) {
   document.getElementById("post-title").value = "";
   document.getElementById("post-content").value = "";
   document.getElementById("post-tags").value = "";
+
+  // Dölj formuläret efter att ett inlägg har skapats
+  createPostForm.classList.add("hidden");
 }
 
 // Funktion för att visa inlägg på sidan
@@ -116,3 +120,11 @@ function getFromLocalStorage() {
     return [];
   }
 }
+
+// Lägg till event listner för Write Post-knappen
+document
+  .getElementById("writePostButton")
+  .addEventListener("click", function () {
+    // Visa eller dölj formuläret beroende på dess nuvarande tillstånd
+    createPostForm.classList.toggle("hidden");
+  });
