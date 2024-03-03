@@ -107,5 +107,9 @@ function saveToLocalStorage(posts) {
 // Funktion för att hämta inlägg från local storage
 function getFromLocalStorage() {
   const storedPosts = localStorage.getItem("posts");
-  return storedPosts ? JSON.parse(storedPosts) : [];
+  if (storedPosts) {
+    return JSON.parse(storedPosts);
+  } else {
+    return [];
+  }
 }
