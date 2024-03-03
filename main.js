@@ -11,7 +11,7 @@ if (posts.length === 0) {
       // Konvertera API-data och spara i local storage
       const apiPosts = data.posts.map((post) => ({
         ...post,
-        reactions: 0, // Lägg till en nollreaktion som standard
+        reactions: post.reactions || 0, //använd befintliga rektioner eller lägg till en nollreaktion som standard
       }));
       saveToLocalStorage(apiPosts);
       displayPosts(apiPosts); // Visa inlägg på sidan
